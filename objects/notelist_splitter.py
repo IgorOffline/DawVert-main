@@ -18,7 +18,7 @@ class timesigblocks:
 		mode = core.config_data.splitter_mode
 		detect_start = core.config_data.splitter_mode
 
-		ppq = convproj_obj.time_ppq
+		ppq = int(convproj_obj.time_ppq)
 		songduration = convproj_obj.get_dur()+ppq
 
 		timesig_num, timesig_dem = convproj_obj.timesig
@@ -44,18 +44,18 @@ class timesigblocks:
 
 	def timesig(self, endpos, ts, ppq, timesig_num, timesig_dem, startpos, mode):
 		if mode == 1: 
-			tcalc = timesig_num*timesig_dem
+			tcalc = int(timesig_num*timesig_dem)
 			startd = startpos%(ppq*tcalc)
 		else: 
-			tcalc = timesig_num
+			tcalc = int(timesig_num)
 			startd = startpos%ppq
 
-		self.timesigposs = [[0, tcalc*ppq]]
+		self.timesigposs = [[0, int(tcalc*ppq)]]
 		for p, v in ts: 
 			if mode == 1: tscalc = timesig_num*timesig_dem
 			else: tscalc = timesig_num
 			self.timesigposs.append([startd+p, tscalc*ppq])
-		self.timesigposs += [[endpos, tcalc*ppq]]
+		self.timesigposs += [[endpos, int(tcalc*ppq)]]
 		self.process()
 
 	def endsplit(self, endpos, splitdur, startpos):
